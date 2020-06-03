@@ -1,9 +1,38 @@
 const fs = require('fs');
 
-let crearArchivo = (tabla) => {
+
+let ListarTabla = (tabla, limite) => {
+    let t = '';
+    return new Promise((resolve, reject) => {
+
+        if (!Number(tabla)) {
+            reject(`la tabla ${tabla} no es un numero valido`);
+            return;
+        }
+        if (!Number(limite)) {
+            reject(`el limite ${limite} no es un numero valido`);
+            return;
+        }
+        for (let i = 0; i <= limite; i++) {
+            t += (`Tabla del ${tabla} * ${i} = ${tabla*i}\n`);
+        }
+        resolve(t);
+    });
+}
+ListarTabla(5, 20);
+
+let crearArchivo = (tabla, limite = 10) => {
     let data = '';
     return new Promise((resolve, reject) => {
-        for (let i = 0; i <= 10; i++) {
+        if (!Number(tabla)) {
+            reject(`el valor ${tabla} ingresado no es un numero`);
+            return;
+        }
+        if (!Number(limite)) {
+            reject(`el limite ${limite} no es un numero valido`);
+            return;
+        }
+        for (let i = 0; i <= limite; i++) {
             data += `${tabla} * ${i} = ${i*tabla}\n`;
         }
         // console.log(data);
@@ -17,5 +46,6 @@ let crearArchivo = (tabla) => {
 }
 
 module.exports = {
-    crearArchivo
+    crearArchivo,
+    ListarTabla
 }
